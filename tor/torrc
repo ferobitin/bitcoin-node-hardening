@@ -1,0 +1,12 @@
+# BTC Core
+CookieAuthentication 1
+CookieAuthFileGroupReadable 1
+
+SocksPort 127.0.0.1:9050 IsolateDestAddr IsolateDestPort
+SocksPort 127.0.0.1:9052 IsolateDestAddr IsolateDestPort
+ControlPort 127.0.0.1:9051
+
+# CLN
+HiddenServiceDir /var/lib/tor/lightning-service/
+HiddenServicePort 9735 127.0.0.1:9735
+

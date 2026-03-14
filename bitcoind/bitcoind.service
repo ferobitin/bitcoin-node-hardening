@@ -1,0 +1,47 @@
+[Unit]
+Description=Bitcoin Core Daemon
+After=tor.service
+Wants=tor.service
+
+[Service]
+User=bitcoin
+Group=bitcoin
+UMask=0077
+Type=simple
+ExecStart=/usr/local/bin/bitcoind \
+  -daemon=0 \
+  -conf=/etc/bitcoin/bitcoin.conf \
+  -datadir=/srv/bitcoin
+ExecStop=/usr/local/bin/bitcoin-cli \
+  -conf=/etc/bitcoin/bitcoin.conf \
+  -datadir=/srv/bitcoin stop
+Restart=on-failure
+TimeoutStopSec=300
+
+# --- Filesystem --- 
+ProtectSystem=strict
+ProtectHome=true
+Environment=XDG_CONFIG_HOME=/var/lib/bitcoin/config
+StateDirectory=bitcoin
+ReadWritePaths=/srv/bitcoin /var/lib/bitcoin
+PrivateTmp=true
+
+# --- Privileges --- 
+NoNewPrivileges=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+
+# --- Kernel --- 
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# --- Devices --- 
+DevicePolicy=closed
+DeviceAllow=char-usb_device rw
+
+# --- Networking --- 
+RestrictAddressFamilies=AF_INET AF_UNIX AF_NETLINK
+
+[Install]
+WantedBy=multi-user.target

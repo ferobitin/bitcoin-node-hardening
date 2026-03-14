@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+exec journalctl \
+    -u lightningd \
+    -f \
+    --no-pager \
+    --output=short-iso \
+    "$@" \
+    | ccze -A
+

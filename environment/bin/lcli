@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+exec sudo -u lightning lightning-cli \
+    --lightning-dir=/srv/lightning \
+    "$@"
+

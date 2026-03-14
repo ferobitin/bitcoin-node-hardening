@@ -1,0 +1,47 @@
+[Unit]
+Description=Core Lightning (lightningd)
+Wants=network-online.target
+After=network-online.target bitcoind.service
+Requires=bitcoind.service
+StartLimitIntervalSec=300s
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=lightning
+Group=lightning
+UMask=0077
+ExecStart=/usr/local/bin/lightningd \
+  --conf=/etc/lightning/config \
+  --lightning-dir=/srv/lightning
+LogsDirectory=lightning
+LogsDirectoryMode=0750
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=90s
+
+# --- Filesystem ---
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/srv/lightning
+
+# --- Privileges ---
+NoNewPrivileges=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+
+# --- Kernel ---
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# --- Devices ---
+PrivateDevices=true
+
+# --- Networking ---
+RestrictAddressFamilies=AF_INET AF_UNIX
+
+[Install]
+WantedBy=multi-user.target
+

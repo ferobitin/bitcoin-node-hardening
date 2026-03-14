@@ -1,0 +1,16 @@
+# --- General ---
+network=bitcoin
+
+# --- Bitcoin Core Backend ---
+bitcoin-rpcconnect=127.0.0.1
+bitcoin-rpcport=8332
+bitcoin-datadir=/srv/bitcoin
+
+# --- Networking (Tor) ---
+proxy=127.0.0.1:9052
+always-use-proxy=true
+bind-addr=127.0.0.1:9735
+
+# --- Logging ---
+log-level=info
+
