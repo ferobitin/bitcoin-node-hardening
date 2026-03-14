@@ -56,12 +56,12 @@ the impact of potential attacks, bugs and corruption.
 `ProtectSystem=strict` mounts the root filesystem read-only,  
 `ProtectHome=true` makes `/root` and `/run/user` inaccessible.
 
-`/dev`, `/proc` and `/sys` are protected via `PrivateDevices=true`, `ProtectKernelTunables=true`  
-and `ProtectControlGroups=true`.
-
 `PrivateTmp` creates private `/tmp` and `/var/tmp`, preventing sharing with other services.
 
 Only explicitly needed paths are made accessible via `ReadWritePaths`.
+
+`/dev`, `/proc` and `/sys` are protected via `PrivateDevices=true`, `ProtectKernelTunables=true`  
+and `ProtectControlGroups=true`.
 
 ### Address Families
 
