@@ -18,13 +18,12 @@ without Docker or VM abstraction layers.
 
 This is an experimental learning environment to gain understanding of service interactions
 and debugging skills on a hardened node setup.
-
 Also, it is about gaining experience in running stable and controlled services
 (observability, dependencies, resource limits, backup strategies).
 
 ## Architecture
 
-The main components are Bitcoin Core, Core Lightning, Tor and systemd.
+The main components are [Bitcoin Core](https://github.com/bitcoin/bitcoin), [Core Lightning](https://github.com/ElementsProject/lightning), [Tor](https://www.torproject.org/) and [systemd](https://systemd.io/).
 
 Core Lightning communicates with Bitcoin Core via JSON-RPC
 and depends on Bitcoin Core at startup for blockchain access.
@@ -48,10 +47,12 @@ See this as a space to train comprehension, discipline and resource awareness.
 
 Each service is documented separately (including design decisions and hardening considerations)
 within a shared context.
-`/bitcoind/      - unit, bitcoin.conf, README
+```
+/bitcoind/      - unit, bitcoin.conf, README
 /cln/           - unit, config, README
 /tor/           - unit, torrc, README
-/environment/   - wrapper scripts, README`
+/environment/   - wrapper scripts, README
+```
 
 ## Design Principles
 
@@ -65,7 +66,7 @@ within a shared context.
 
 Hardening is applied at the service level (systemd sandboxing directives and namespace isolation
 where supported, minimal read-write paths), user- and filesystem level (dedicated non-privileged users)
-and network-level (Tor-only, UFW restrictions).
+and network level (Tor-only, UFW restrictions).
 
 The intention is to protect the system: minimize the attack surface and isolate permissions
 (reduce blast radius).

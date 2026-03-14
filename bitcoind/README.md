@@ -46,13 +46,11 @@ The startup ordering is enforced via `After=` and `Wants=`.
 
 ## Systemd Hardening
 
-Due to the service's access to sensitive data (and possibly funds),  
-the unit is designed to be as restrictive as possible, without breaking the service.
+The unit is designed to be as restrictive as possible, without breaking the service.
 
 ### Filesystem Isolation
 
 `UMask=0077` restrains default permissions for newly created files and directories.
-
 Group access is only permitted where explicitly required (see RPC Access Boundary).
 
 The filesystem is mounted read-only via `ProtectSystem=strict`.
@@ -64,10 +62,12 @@ The filesystem is mounted read-only via `ProtectSystem=strict`.
 HWI uses the `StateDirectory` as a supplementary Home for HWI configuration:  
 since `ProtectHome=strict` blocks access to `/home`, `XDG_CONFIG_HOME` is redirected to `/var/lib/bitcoin/config`.
 
+`/proc` and `/sys` are protected via `ProtectKernelTunables=true` and `ProtectControlGroups=true`.
+
+
 ### Devices
 
 Device access is denied by default.
-
 The only exception is granted for USB character devices, in order to enable communication between HWI and hardware wallets.
 
 ### Address Family Restrictions
@@ -77,6 +77,7 @@ The only exception is granted for USB character devices, in order to enable comm
 `AF_UNIX` is required for local IPC.
 
 `AF_NETLINK` is enabled for hardware wallet enumeration via HWI.
+
 
 The complete file can be found in `/bitcoind/bitcoind.service`.
 
@@ -91,11 +92,9 @@ Bitcoin Core runs Tor-only and local RPC only, provides blockchain data and inde
 `server=1` enables the JSON-RPC server, required by `bitcoin-cli` and `lightningd`.
 
 Cookie authentication is the default, avoiding static plaintext passwords.
-
 The cookie file is stored in the datadir (`rpccookieperms=group` allows group access).
 
 `rpcbind=127.0.0.1` binds RPC to loopback only.
-
 `rpcallowip=127.0.0.1` is practically redundant but it's a nice additional defense layer.
 
 ### Network
@@ -105,33 +104,29 @@ The setup runs Tor only.
 `onlynet=onion` restricts peer connection to the onion network.
 
 Outbound P2P traffic is routed via a local Tor SOCKS5 proxy:
-
 `proxy=127.0.0.1:9050` (see `/tor/README.md`).
 
 `listen=1` is default to allow general inbound connectivity.
 
 `listenonion=1` is set in order to enable onion-inbound.
-
 `torcontrol=127.0.0.1:9051` allows `bitcoind` to set up an onion service (via the Tor control port).
 
 Since clearnet peer addresses are not used:
-
 `dnsseed=0` avoids unnecessary DNS seed lookups via Tor.
 
-`discover=0` is set to explicitly enforce and document the Tor-only network boundary,  
+`discover=0` is set explicitly to enforce and document the Tor-only network boundary,  
 (although it would be disabled by `proxy=` anyway).
 
 ### Indexes (optional)
 
 `txindex=1` may be required by certain CLN plugins, enables historical transaction lookup.
-
-Increases disk usage and IBD time significantly.
+(Increases disk usage and IBD time significantly)
 
 `blockfilterindex=1` creates BIP158 compact block filters (nice to have; wallet rescans are faster).
+(Slightly increases disk usage and IBD time)
 
-Slightly increases disk usage and IBD time.
-
-`coinstatsindex=1` might be useful for monitoring and research use cases, trades additional disk space and IBD time.
+`coinstatsindex=1` might be useful for monitoring and research use cases.
+(Trades additional disk space and IBD time)
 
 ### Resources & Performance (optional)
 
@@ -139,13 +134,14 @@ Slightly increases disk usage and IBD time.
 
 `maxconnections=40` limits the number of concurrent peers to 40 in order to reduce potential resource pressure on Tor.
 
-These configurations are optional. Adjust them to your individual needs and hardware.
+Adjust this to your individual needs and hardware.
 
 ### External Signer
 
 `signer=/usr/local/bin/hwi` sets the external signer interface (HWI) to interact with hardware wallets.
 
 See `/environment/README.md`.
+
 
 The complete file can be found in `/bitcoind/bitcoin.conf`.
 
@@ -155,8 +151,7 @@ The complete file can be found in `/bitcoind/bitcoin.conf`.
 
 RPC access is only granted to the `bitcoin` user and members of the `bitcoin` group, enforced through Unix permissions on the RPC cookie file.
 
-Since the cookie file lives in the datadir, `UMask=0077` (see Systemd Hardening) is crucial to restrict the default permissions on all other files created by `bitcoind` inside the datadir.
-
+`UMask=0077` (see Systemd Hardening) is crucial to restrict the default permissions on all other files created by `bitcoind`, since the cookie file lives in the datadir.
 This way, wallets and other sensitive elements remain inaccessible to group members and others.
 
 RPC is bound to loopback only (see "RPC").
@@ -166,13 +161,11 @@ The cookie is the only way to gain RPC control over `bitcoind`, and it grants fu
 ### Private Keys
 
 Private keys should not reside on the node.
-
 Use a watch-only wallet and sign PSBTs with a hardware wallet via HWI.
 
 ### Network Exposure
 
 This node is not reachable over clearnet.
-
 P2P runs Tor-only and RPC is local-only.
 
 See "Connectivity" and "Network".

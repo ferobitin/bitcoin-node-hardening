@@ -40,9 +40,8 @@ The startup depends on `bitcoind` via the `After=` and `Requires=` systemd direc
 
 ### Connectivity
 
-Outbound Lightning peer connections are routed through a local Tor SOCKS5 proxy.  
-Clearnet outbound connections are disabled.
-
+Clearnet outbound connections are disabled. 
+Outbound Lightning peer connections are routed through a local Tor SOCKS5 proxy. 
 Inbound connectivity is available via an external managed hidden service.
 
 See `/tor/README.md`.
@@ -106,9 +105,7 @@ To make `.cookie` authentication work, we grant access to the bitcoin datadir vi
 
 `always-use-proxy=true` enforces that all outbound is routed through a local Tor SOCKS5 proxy (`proxy=127.0.0.1`).
 
-`bind-addr=127.0.0.1:9735` binds the lightning TCP listener to localhost,  
-allowing inbound connections only through the Tor hidden service  
-(see `/tor/README.md`).
+`bind-addr=127.0.0.1:9735` binds the lightning TCP listener to localhost, allowing inbound connections only through the Tor hidden service (see `/tor/README.md`).
 
 Direct clearnet connections are effectively disabled.
 

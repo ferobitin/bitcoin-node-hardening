@@ -51,8 +51,7 @@ State and keys: `/var/lib/tor/*`
 
 ### Authentication
 
-Tor uses cookie authentication (`CookieAuthentication 1`) with group-readable cookies 
-(`CookieAuthFileGroupReadable 1`) to allow controlled access to the control port.
+Tor uses cookie authentication (`CookieAuthentication 1`) with group-readable cookies (`CookieAuthFileGroupReadable 1`) to allow controlled access to the control port.
 
 ### SOCKS Proxies
 
