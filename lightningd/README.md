@@ -2,6 +2,7 @@
 
 Tested with:
 
+- Core Lightning v25.12.1
 - Bitcoin Core v30.2.0
 - Debian 13 "Trixie"
 - systemd 257
