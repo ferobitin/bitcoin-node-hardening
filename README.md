@@ -49,7 +49,7 @@ Each service is documented separately (including design decisions and hardening 
 within a shared context.
 ```
 /bitcoind/      - unit, bitcoin.conf, README
-/cln/           - unit, config, README
+/lightningd/    - unit, config, README
 /tor/           - unit, torrc, README
 /environment/   - wrapper scripts, README
 ```

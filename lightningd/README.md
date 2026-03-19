@@ -72,7 +72,7 @@ only `AF_INET` is needed for network communication.
 
 `RestrictAddressFamilies=` creates an allow-list.
 
-The complete file can be found in `/cln/lightningd.service`.
+The complete file can be found in `/lightningd/lightningd.service`.
 
 ## Configuration (config)
 
@@ -111,7 +111,7 @@ Direct clearnet connections are effectively disabled.
 
 See `/tor/README.md` for further details.
 
-The complete file can be found in `/cln/config`.
+The complete file can be found in `/lightningd/config`.
 
 ## Trust & Security
 
