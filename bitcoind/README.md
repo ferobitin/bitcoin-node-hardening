@@ -57,10 +57,10 @@ The filesystem is mounted read-only via `ProtectSystem=strict`.
 
 `PrivateTmp` creates private `/tmp` and `/var/tmp`, preventing sharing with other services.
 
-`ReadWritePaths=` explicitly gives rw permissions for the datadir, the backup directory, and the state directory.
+`ReadWritePaths=` explicitly gives rw permissions for the datadir and the state directory.
 
 HWI uses the `StateDirectory` as a supplementary Home for HWI configuration:  
-since `ProtectHome=strict` blocks access to `/home`, `XDG_CONFIG_HOME` is redirected to `/var/lib/bitcoin/config`.
+since `ProtectHome=true` blocks access to `/home`, `XDG_CONFIG_HOME` is redirected to `/var/lib/bitcoin/config`.
 
 `/proc` and `/sys` are protected via `ProtectKernelTunables=true` and `ProtectControlGroups=true`.
 

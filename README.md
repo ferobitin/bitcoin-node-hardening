@@ -66,7 +66,7 @@ within a shared context.
 
 Hardening is applied at the service level (systemd sandboxing directives and namespace isolation
 where supported, minimal read-write paths), user- and filesystem level (dedicated non-privileged users)
-and network level (Tor-only, UFW restrictions).
+and network level (Tor-only, UFW restrictions - not included in this repo; configure separately).
 
 The intention is to protect the system: minimize the attack surface and isolate permissions
 (reduce blast radius).

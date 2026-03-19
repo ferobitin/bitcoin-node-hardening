@@ -84,7 +84,7 @@ The complete configuration file can be found in `/tor/torrc`.
 ## Backups
 
 The private key determines the `.onion` address. If you lose these keys, Tor will generate a new key pair
-and the onion address will change. Changing the onion address my break peer connections and known service
+and the onion address will change. Changing the onion address may break peer connections and known service
 endpoints.
 
 These keys should therefore be backed up.

@@ -43,7 +43,7 @@ The startup depends on `bitcoind` via the `After=` and `Requires=` systemd direc
 
 Clearnet outbound connections are disabled. 
 Outbound Lightning peer connections are routed through a local Tor SOCKS5 proxy. 
-Inbound connectivity is available via an external managed hidden service.
+Inbound connectivity is available via a local Tor hidden service configured in /etc/tor/torrc.
 
 See `/tor/README.md`.
 
@@ -98,7 +98,7 @@ for risk-free testing environments.
 (see *Dependency on Bitcoin Core* above).
 
 To make `.cookie` authentication work, we grant access to the bitcoin datadir via  
-`bitcoin-datadir=/srv/bitcoin`, where the cookie file is stored.
+`bitcoin-datadir=/srv/bitcoin` and grant group-based access via `SupplementaryGroups=bitcoin`, so `lightningd` can read the cookie file stored there., so `lightningd` can read the cookie file stored there.
 
 `bitcoin-rpcport=8332` and `bitcoin-rpcconnect=127.0.0.1` tell `lightningd` where `bitcoind` is listening.
 

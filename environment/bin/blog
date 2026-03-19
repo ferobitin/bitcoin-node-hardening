@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-exec journalctl \
-    -u bitcoind \
-    -f \
-    --no-pager \
-    --output=short-iso \
-    "$@" \
-    | ccze -A
-
+if command -v ccze >/dev/null 2>&1; then
+  journalctl -u bitcoind -f --no-pager --output=short-iso "$@" | ccze -A
+else
+  journalctl -u bitcoind -f --no-pager --output=short-iso "$@"
+fi

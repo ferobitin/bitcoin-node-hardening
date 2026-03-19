@@ -18,9 +18,7 @@ Wrappers:
 
 Binary:
 
-Binary:
-
-- `hwi` → [Hardware Wallet Interface (HWI)](https://github.com/bitcoin-core/HWI) binary (external tool)
+- `hwi` → [Hardware Wallet Interface (HWI)](https://github.com/bitcoin-core/HWI) binary (external; install separately; not included in this repo)
 
 ## HWI
 
